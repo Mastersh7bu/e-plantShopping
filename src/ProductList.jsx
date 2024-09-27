@@ -276,7 +276,7 @@ const handleBackToAboutUs = () => {
                         <div>
                     <h3 style={{color:'white'}}>Paradise Nursery</h3>
                     <i style={{color:'white'}}>Where Green Meets Serenity</i>
-                    <h4 style={{cursor: 'pointer',color:'white'}}>Back</h4>
+                    <h4 style={{cursor: 'pointer',color:'white'}}>Close</h4>
                     </div>
                     </a>
                 </div>
