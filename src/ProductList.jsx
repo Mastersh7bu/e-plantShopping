@@ -3,10 +3,12 @@ import './ProductList.css'
 import CartItem from './CartItem';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItem } from './CartSlice'; // Import the addItem action
+import AboutUs from './AboutUs'; // Import the About Us component
 
 function ProductList() {
     const [showCart, setShowCart] = useState(false); 
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    const [showAboutUs, setShowAboutUs] = useState(false); // State to control About Us visibility
     const dispatch = useDispatch(); // Initialize dispatch
 
     const plantsArray = [
@@ -239,6 +241,7 @@ function ProductList() {
    const handleCartClick = (e) => {
     e.preventDefault();
     setShowCart(true); // Set showCart to true when cart icon is clicked
+    setShowAboutUs(false); // Hide About Us if it's currently shown
 };
 const handlePlantsClick = (e) => {
     e.preventDefault();
@@ -246,8 +249,14 @@ const handlePlantsClick = (e) => {
     setShowCart(false); // Hide the cart when navigating to About Us
 };
 
+const handleBackToAboutUs = () => {
+    setShowAboutUs(true); // Show the About Us page
+    setShowCart(false); // Hide the cart if it's currently shown
+  };
+
    const handleContinueShopping = (e) => {
     e.preventDefault();
+    setShowPlants(true);
     setShowCart(false);
   };
   const [addedToCart,setaddedToCart] = useState ({});
@@ -260,19 +269,22 @@ const handlePlantsClick = (e) => {
         <div>
              <div className="navbar" style={styleObj}>
             <div className="tag">
+            
                <div className="luxury">
-               <img src="https://cdn.pixabay.com/photo/2020/08/05/13/12/eco-5465432_1280.png" alt="" />
-               <a href="/" style={{textDecoration:'none'}}>
+               <img src="https://cdn.pixabay.com/photo/2020/08/05/13/12/eco-5465432_1280.png" alt="" style={{textDecoration:'none',margin: 5% 0}} />
+               <a href="/" style={{textDecoration:'none',margin: 5% 0}}>
                         <div>
                     <h3 style={{color:'white'}}>Paradise Nursery</h3>
                     <i style={{color:'white'}}>Where Green Meets Serenity</i>
+                    <h4 style={{cursor: 'pointer',color:'white'}}>Back</h4>
                     </div>
                     </a>
                 </div>
-              
+                
             </div>
             <div style={styleObjUl}>
                 <div> <a href="#" onClick={(e)=>handlePlantsClick(e)} style={styleA}>Plants</a></div>
+                
                 <div>
                   <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}>
                     <h1 className='cart'>
@@ -288,7 +300,11 @@ const handlePlantsClick = (e) => {
                 </div>
             </div>
         </div>
-        {!showCart? (
+        {showAboutUs ? (
+        <AboutUs /> // Render the About Us component
+      ) : showCart ? (
+        <CartItem onContinueShopping={handleContinueShopping} />
+      ) : (
         <div className="product-grid">
             {plantsArray.map((category, index) => (
                         <div className="product-card" key={index}>
@@ -308,9 +324,7 @@ const handlePlantsClick = (e) => {
                     ))}
 
         </div>
- ) :  (
-    <CartItem onContinueShopping={handleContinueShopping}/>
-)}
+      )}
     </div>
     );
 }

@@ -66,6 +66,7 @@ const CartItem = ({ onContinueShopping }) => {
               <button className="cart-item-delete" onClick={() => handleRemove(item)}>Delete</button>
             
             </div>
+
           </div>
         ))}
       </div>
@@ -80,5 +81,6 @@ const CartItem = ({ onContinueShopping }) => {
 };
 
 export default CartItem;
+
 
 
